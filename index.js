@@ -10,20 +10,21 @@ const optionRoutes = require('./src/routes/option');
 const errorHandler = require('./src/middleware/errorHandler');
 const verifyToken = require('./src/middleware/verifyToken');
 
-
 dotenv.config();
 
-
+// Middleware for CORS with logging
 app.use((req, res, next) => {
     console.log('CORS request:', req.method, req.headers.origin);
     next();
 });
+
 app.use(cors({
-    origin: 'https://quiz-bot-fe.vercel.app',
+    origin: 'https://quiz-bot-fe.vercel.app', // Allow only your frontend origin
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
+// Handle preflight requests for all routes
 app.options('*', (req, res) => {
     res.header('Access-Control-Allow-Origin', 'https://quiz-bot-fe.vercel.app');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -31,17 +32,15 @@ app.options('*', (req, res) => {
     res.sendStatus(200); // Respond with a 200 OK status
 });
 
-
-
 // Middleware for JSON and URL encoding
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/user', userRoutes);
-app.use('/quiz',quizRoutes);
-app.use('/question',questionRoutes);
-app.use('/option',optionRoutes);
+app.use('/quiz', quizRoutes);
+app.use('/question', questionRoutes);
+app.use('/option', optionRoutes);
 
 // Error handling middleware
 app.use(errorHandler);

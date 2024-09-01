@@ -14,8 +14,16 @@ const verifyToken = require('./src/middleware/verifyToken');
 dotenv.config();
 
 
-// Use CORS middleware
-app.use(cors());
+app.use((req, res, next) => {
+    console.log('CORS request:', req.method, req.headers.origin);
+    next();
+});
+app.use(cors({
+    origin: 'https://quiz-bot-fe.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 
 // Middleware for JSON and URL encoding
 app.use(express.json());

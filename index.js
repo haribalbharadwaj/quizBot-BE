@@ -15,12 +15,13 @@ dotenv.config();
 
 
 const corsOptions = {
-    origin: 'https://quiz-bot-fe.vercel.app', // Replace with your frontend URL
+    origin: process.env.CORS_ORIGIN || 'https://quiz-bot-fe.vercel.app', // Allow for dynamic origin
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // Enable if you need to allow cookies
 };
-
 app.use(cors(corsOptions));
+
 
 // Middleware for JSON and URL encoding
 app.use(express.json());

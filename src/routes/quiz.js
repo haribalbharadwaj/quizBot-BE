@@ -10,7 +10,7 @@ router.post('/createQuiz', verifyToken,createQuiz);
 // Route to delete a quiz
 router.delete('/deleteQuiz/:id', verifyToken,deleteQuiz);
 
-router.get('/quiz/:id',verifyToken,getQuiz);
+router.get('/quiz/:id',getQuiz);
 
 router.post('/recordAnswer',recordAnswer);
 

@@ -14,14 +14,16 @@ const verifyToken = require('./src/middleware/verifyToken');
 dotenv.config();
 
 
-const corsOptions = {
+/*const corsOptions = {
     origin: process.env.CORS_ORIGIN || 'https://quiz-bot-fe.vercel.app', // Allow for dynamic origin
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // Enable if you need to allow cookies
 };
 app.use(cors(corsOptions));
+*/
 
+app.use(cors());
 
 // Middleware for JSON and URL encoding
 app.use(express.json());
